@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>오늘의장바구니</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: 할인 스티커 번호표 + 상단 보기 전환(리스트/이미지), 모바일 한 열 · 이미지 보기 두 열 */
+:root{
+  --bg:#ffffff; --surface:#ffffff; --ink:#111111; --muted:#777777; --line:#e5e5e5;
+  --accent:#346aff; --accent-ink:#ffffff; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#f5f6f8; --thumb:#f3f3f3;
+  --f-display:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;
+  --f-body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121212; --surface:#1c1c1c; --ink:#f1f1f1; --muted:#a3a3a3; --line:#2e2e2e;
+  --accent:#6b93ff; --accent-ink:#0d1020; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#202226; --thumb:#262626; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121212; --surface:#1c1c1c; --ink:#f1f1f1; --muted:#a3a3a3; --line:#2e2e2e;
+  --accent:#6b93ff; --accent-ink:#0d1020; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#202226; --thumb:#262626; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:600px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:center;gap:14px}
+.logo{width:56px;height:56px;flex:none;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--f-display);font-size:22px}
+h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;margin:0}
+.sub{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.notice{font-size:12.5px;color:var(--muted);background:var(--soft);border-radius:4px;padding:10px 12px;margin:0}
+.notice b{color:var(--ink);font-weight:500}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--bg);padding-block:8px;display:flex;flex-direction:column;gap:10px}
+.views{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.views button{font:inherit;font-size:14px;font-weight:700;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 0;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.views button[aria-pressed="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.views svg{width:16px;height:16px}
+.field{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--accent);border-radius:4px;padding:0 12px}
+.field span{font-family:var(--f-num);font-weight:600;color:var(--sticker)}
+.field input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font-family:var(--f-num);font-size:19px;font-weight:600;padding:11px 0;outline:none}
+.field input::placeholder{font-family:var(--f-body);font-size:14px;font-weight:400;color:var(--muted)}
+.field:focus-within{box-shadow:0 0 0 3px var(--soft)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--surface)!important;color:var(--accent)!important;border-color:var(--accent)!important;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:6px;position:relative}
+.item.hit{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.sticker{background:var(--sticker);color:var(--sticker-ink);font-family:var(--f-num);font-variant-numeric:tabular-nums;font-weight:600;border-radius:8px;display:grid;place-items:center;line-height:1;text-align:center}
+.thumb{background:var(--thumb);border-radius:4px;display:grid;place-items:center;font-family:var(--f-body);font-weight:500;color:var(--muted);text-align:center;padding:6px;overflow:hidden}
+.info{min-width:0}
+.info h2{font-size:15px;font-weight:700;margin:0;line-height:1.35}
+.info p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.meta span{white-space:nowrap;font-size:11px;border-radius:3px;padding:1px 6px;border:1px solid var(--accent);color:var(--accent);font-weight:500}
+.buy{font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent);text-decoration:none;border-radius:4px;padding:10px 12px;white-space:nowrap;text-align:center}
+
+/* 리스트 보기 */
+.list .items,.list{gap:0}
+.list .item{display:grid;grid-template-columns:auto 60px 1fr auto;align-items:center;gap:12px;padding:12px 4px;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.list .sticker{width:34px;height:34px;font-size:14px}
+.list .thumb{width:60px;height:60px;font-size:12px}
+/* 이미지 보기 */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid .item{display:flex;flex-direction:column;overflow:hidden}
+.grid .thumb{aspect-ratio:1/1;max-width:100%;border-radius:0;font-size:14px;line-height:1.2}
+.grid .sticker{position:absolute;top:8px;left:8px;width:36px;height:36px;font-size:14px}
+.grid .info{padding:10px 12px 0;flex:1}
+.grid .buy{margin:10px 12px 12px}
+@media (max-width:400px){.list .item{grid-template-columns:auto 52px 1fr}.list .thumb{width:52px;height:52px}.list .buy{grid-column:1/-1}}
+
+.empty{text-align:center;color:var(--muted);padding:28px 0;margin:0}
+footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid var(--line);padding-top:14px}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="logo" aria-hidden="true">오늘</div>
+    <div>
+      <h1>오늘의장바구니</h1>
+      <p class="sub">@oneul_cart · 영상에서 본 생활템, 번호로 바로 찾기</p>
+    </div>
+  </header>
+
+  <p class="notice"><b>이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</b> 링크로 구매해도 가격은 같아요.</p>
+
+  <div class="bar">
+    <div class="views" role="group" aria-label="보기 방식">
+      <button type="button" id="v-list" data-v="list"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="3" rx="1"/><rect x="1" y="6.5" width="14" height="3" rx="1"/><rect x="1" y="11" width="14" height="3" rx="1"/></svg>리스트 보기</button>
+      <button type="button" id="v-grid" data-v="grid"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6.3" height="6.3" rx="1.2"/><rect x="8.7" y="1" width="6.3" height="6.3" rx="1.2"/><rect x="1" y="8.7" width="6.3" height="6.3" rx="1.2"/><rect x="8.7" y="8.7" width="6.3" height="6.3" rx="1.2"/></svg>이미지 보기</button>
+    </div>
+    <label class="field" for="q"><span>No.</span><input id="q" inputmode="search" autocomplete="off" placeholder="영상 속 번호 또는 상품 이름"></label>
+  </div>
+
+  <div class="chips" role="group" aria-label="카테고리" id="chips"></div>
+
+  <ul class="items list" id="items"></ul>
+  <p class="empty" id="empty" hidden>찾는 번호가 없어요. 영상 캡션의 번호를 다시 확인해 주세요.</p>
+
+  <footer>샘플 상품 목록입니다 · 실제 운영 시 상품 사진과 쿠팡 파트너스 링크로 교체</footer>
+</div>
+
+<script>
+const S = q => 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
+const products = [
+  {no:1, name:'문풍지 틈막이 테이프', short:'문풍지', note:'외풍 막아 난방비 절약', cat:'겨울준비', tags:['로켓배송'], hue:210},
+  {no:2, name:'전기요 싱글', short:'전기요', note:'온도 6단계, 자동 꺼짐', cat:'겨울준비', tags:['로켓배송','베스트'], hue:12},
+  {no:3, name:'미니 가습기', short:'가습기', note:'책상용, USB 전원', cat:'겨울준비', tags:['로켓배송'], hue:190},
+  {no:4, name:'냉장고 정리 용기 세트', short:'정리 용기', note:'칸 나눔 투명 용기', cat:'주방', tags:['로켓배송'], hue:150},
+  {no:5, name:'싱크대 배수구 거름망', short:'거름망', note:'일회용 100매', cat:'주방', tags:['재구매 많음'], hue:40},
+  {no:6, name:'압축 수납백', short:'압축백', note:'여름옷 부피 1/3로', cat:'수납', tags:['로켓배송'], hue:265},
+  {no:7, name:'무선 청소기 거치대', short:'거치대', note:'벽 타공 없이 세우는 형', cat:'수납', tags:[], hue:230},
+  {no:8, name:'욕실 곰팡이 제거젤', short:'곰팡이젤', note:'실리콘 틈 전용', cat:'욕실', tags:['베스트'], hue:175},
+  {no:9, name:'멀티탭 정리함', short:'정리함', note:'선 숨기는 박스', cat:'수납', tags:[], hue:300},
+  {no:10, name:'극세사 수면양말', short:'수면양말', note:'5켤레 묶음', cat:'겨울준비', tags:['로켓배송'], hue:340}
+];
+const cats = ['전체', ...new Set(products.map(p => p.cat))];
+let cat = '전체', view = 'list';
+try { view = localStorage.getItem('view') || 'list'; } catch(e) {}
+const $items = document.getElementById('items'), $q = document.getElementById('q'),
+      $empty = document.getElementById('empty'), $chips = document.getElementById('chips');
+const dark = () => document.documentElement.dataset.theme === 'dark' ||
+  (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+
+document.querySelectorAll('.views button').forEach(b => b.onclick = () => {
+  view = b.dataset.v; try { localStorage.setItem('view', view); } catch(e) {} render();
+});
+cats.forEach(c => {
+  const b = document.createElement('button');
+  b.className = 'chip'; b.type = 'button'; b.textContent = c; b.id = 'chip-' + c;
+  b.onclick = () => { cat = c; render(); };
+  $chips.appendChild(b);
+});
+
+function render(){
+  document.querySelectorAll('.views button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === view));
+  [...$chips.children].forEach(x => x.setAttribute('aria-pressed', x.textContent === cat));
+  $items.className = 'items ' + view;
+  const q = $q.value.trim(), isNum = /^\d+$/.test(q);
+  const rows = products.filter(p =>
+    (cat === '전체' || p.cat === cat) &&
+    (!q || (isNum ? p.no === +q : p.name.includes(q) || p.note.includes(q))));
+  $items.innerHTML = rows.map(p => `
+    <li class="item${isNum && rows.length === 1 ? ' hit' : ''}">
+      <div class="sticker" aria-label="상품 번호 ${p.no}">${p.no}</div>
+      <div class="thumb" aria-hidden="true">상품 사진<br>${p.short}</div>
+      <div class="info"><h2>${p.name}</h2><p>${p.note}</p>
+        ${p.tags.length ? `<div class="meta">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>` : ''}</div>
+      <a class="buy" href="${S(p.name)}" target="_blank" rel="noopener">쿠팡에서 보기</a>
+    </li>`).join('');
+  $empty.hidden = rows.length > 0;
+}
+$q.addEventListener('input', render);
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', render);
+new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+render();
+</script>
+
+</html>
