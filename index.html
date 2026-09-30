@@ -7,15 +7,15 @@
 <title>오늘의장바구니</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap">
 <style>
 /* Layout: 할인 스티커 번호표 + 상단 보기 전환(리스트/이미지), 모바일 한 열 · 이미지 보기 두 열 */
 :root{
   --bg:#ffffff; --surface:#ffffff; --ink:#111111; --muted:#777777; --line:#e5e5e5;
   --accent:#346aff; --accent-ink:#ffffff; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#f5f6f8; --thumb:#f3f3f3;
-  --f-display:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;
+  --f-display:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
   --f-body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
-  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-num:"Noto Sans KR",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#121212; --surface:#1c1c1c; --ink:#f1f1f1; --muted:#a3a3a3; --line:#2e2e2e;
@@ -23,15 +23,15 @@
 :root[data-theme="dark"]{
   --bg:#121212; --surface:#1c1c1c; --ink:#f1f1f1; --muted:#a3a3a3; --line:#2e2e2e;
   --accent:#6b93ff; --accent-ink:#0d1020; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#202226; --thumb:#262626; color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;letter-spacing:-.01em;word-break:keep-all}
 .wrap{max-width:600px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:16px}
 header{display:flex;align-items:center;gap:14px}
-.logo{width:56px;height:56px;flex:none;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--f-display);font-size:22px}
-h1{font-family:var(--f-display);font-weight:400;font-size:30px;line-height:1.1;margin:0}
+.logo{width:56px;height:56px;flex:none;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--f-display);font-weight:900;font-size:19px;letter-spacing:-.03em}
+h1{font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.02em;margin:0}
 .sub{margin:2px 0 0;color:var(--muted);font-size:13.5px}
 .promise{display:flex;align-items:center;gap:12px;background:var(--sticker);color:var(--sticker-ink);border-radius:8px;padding:14px 16px}
 .promise .ck{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sticker-ink);color:var(--sticker);display:grid;place-items:center;font-weight:700;font-size:18px}
-.promise strong{display:block;font-family:var(--f-display);font-weight:400;font-size:clamp(19px,5.2vw,24px);line-height:1.2}
+.promise strong{display:block;font-family:var(--f-display);font-weight:900;letter-spacing:-.02em;font-size:clamp(19px,5.2vw,24px);line-height:1.2}
 .promise span{display:block;font-size:13px;margin-top:2px;opacity:.85}
 .notice{font-size:13px;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin:0}
 
