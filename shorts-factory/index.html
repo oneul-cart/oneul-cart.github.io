@@ -1,1 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SHORTS FACTORY</title>
+<style>
+  :root { --bg:#ffffff; --fg:#1a1a1a; --muted:#5f6368; --line:#e0e0e0; --link:#1a73e8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#17181a; --fg:#e8eaed; --muted:#9aa0a6; --line:#3c4043; --link:#8ab4f8; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:56px 20px 80px; }
+  h1 { font-size:28px; margin:0 0 4px; letter-spacing:-.3px; }
+  .sub { color:var(--muted); margin:0 0 36px; }
+  h2 { font-size:18px; margin:36px 0 10px; }
+  p { margin:0 0 14px; }
+  ul { margin:0 0 14px; padding-left:20px; }
+  li { margin-bottom:6px; }
+  a { color:var(--link); }
+  hr { border:0; border-top:1px solid var(--line); margin:40px 0 24px; }
+  .ko { color:var(--muted); font-size:15px; }
+  footer { color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SHORTS FACTORY</h1>
+  <p class="sub">A personal publishing tool for the owner&rsquo;s own YouTube channels</p>
 
+  <h2>What this is</h2>
+  <p>SHORTS FACTORY is a private, single-user tool. It takes short videos that the
+     owner has produced on their own computer and uploads them to the owner&rsquo;s own
+     YouTube channels, together with the title, description, tags and thumbnail
+     prepared for each video.</p>
+  <p>It is not a public service. No one other than the owner signs in to it, and it
+     does not accept content from anyone else.</p>
+
+  <h2>What it accesses</h2>
+  <p>It requests exactly one Google permission:</p>
+  <ul>
+    <li><code>https://www.googleapis.com/auth/youtube.upload</code> &mdash;
+        upload a video and set its thumbnail</li>
+  </ul>
+  <p>It does not read channel analytics, subscriber information, comments, or any
+     other account data.</p>
+
+  <h2>Privacy</h2>
+  <p>The tool collects, stores and shares no personal information.
+     See the <a href="privacy.html">Privacy Policy</a> and the
+     <a href="terms.html">Terms of Service</a>.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:converse1004@gmail.com">converse1004@gmail.com</a></p>
+
+  <hr>
+  <p class="ko"><strong>SHORTS FACTORY</strong>는 운영자 본인이 만든 영상을 본인의 유튜브
+     채널에 올리는 1인용 도구입니다. 공개 서비스가 아니며, 본인 외에는 아무도 로그인하지
+     않습니다. 구글 권한은 영상 업로드(<code>youtube.upload</code>) 하나만 요청하고,
+     개인정보를 수집·저장·공유하지 않습니다.</p>
+
+  <footer>Last updated: 2 October 2026</footer>
+</main>
+</body>
+</html>
