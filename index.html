@@ -13,6 +13,7 @@
 :root{
   --bg:#ffffff; --surface:#ffffff; --ink:#111111; --muted:#777777; --line:#e5e5e5;
   --accent:#346aff; --accent-ink:#ffffff; --sticker:#ffc83d; --sticker-ink:#161824; --soft:#f5f6f8; --thumb:#f3f3f3;
+  --naver:#03c75a;
   --f-display:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
   --f-body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
   --f-num:"Noto Sans KR",system-ui,sans-serif;
@@ -47,21 +48,22 @@ h1{font-family:var(--f-display);font-weight:900;font-size:28px;line-height:1.15;
 .field:focus-within{box-shadow:0 0 0 3px var(--soft)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--surface)!important;color:var(--accent)!important;border-color:var(--accent)!important;font-weight:700}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
 button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
 .items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .item{background:var(--surface);border:1px solid var(--line);border-radius:6px;position:relative}
 .item.hit{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
 .sticker{background:var(--sticker);color:var(--sticker-ink);font-family:var(--f-num);font-variant-numeric:tabular-nums;font-weight:600;border-radius:8px;display:grid;place-items:center;line-height:1;text-align:center}
-.thumb{background:var(--thumb);border-radius:4px;display:grid;place-items:center;font-family:var(--f-body);font-weight:500;color:var(--muted);text-align:center;padding:6px;overflow:hidden}
+.thumb{background:var(--thumb);border-radius:4px;display:grid;place-items:center;font-family:var(--f-body);font-weight:500;color:var(--muted);text-align:center;overflow:hidden;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .info{min-width:0}
 .info h2{font-size:15px;font-weight:700;margin:0;line-height:1.35}
 .info p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
 .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
 .meta span{white-space:nowrap;font-size:11px;border-radius:3px;padding:1px 6px;border:1px solid var(--accent);color:var(--accent);font-weight:500}
 .buy{font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent);text-decoration:none;border-radius:4px;padding:10px 12px;white-space:nowrap;text-align:center}
+.buy.naver{background:var(--naver);color:#ffffff}
 
 /* 리스트 보기 */
 .list .items,.list{gap:0}
@@ -72,7 +74,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-off
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .grid .item{display:flex;flex-direction:column;overflow:hidden}
 .grid .thumb{aspect-ratio:1/1;max-width:100%;border-radius:0;font-size:14px;line-height:1.2}
-.grid .sticker{position:absolute;top:8px;left:8px;width:36px;height:36px;font-size:14px}
+.grid .sticker{position:absolute;top:8px;left:8px;width:36px;height:36px;font-size:14px;z-index:1}
 .grid .info{padding:10px 12px 0;flex:1}
 .grid .buy{margin:10px 12px 12px}
 @media (max-width:400px){.list .item{grid-template-columns:auto 52px 1fr}.list .thumb{width:52px;height:52px}.list .buy{grid-column:1/-1}}
@@ -80,6 +82,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-off
 .empty{text-align:center;color:var(--muted);padding:28px 0;margin:0}
 footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid var(--line);padding-top:14px}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header>
@@ -91,7 +95,7 @@ footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid 
   </header>
 
   <div class="promise"><div class="ck" aria-hidden="true">✓</div><div><strong>링크로 사도 가격은 똑같아요</strong><span>할인·쿠폰·로켓배송·와우 혜택 그대로</span></div></div>
-  <p class="notice">이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  <p class="notice">이 페이지는 쿠팡 파트너스 및 제휴 마케팅 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
 
   <div class="bar">
     <div class="views" role="group" aria-label="보기 방식">
@@ -106,39 +110,48 @@ footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid 
   <ul class="items list" id="items"></ul>
   <p class="empty" id="empty" hidden>찾는 번호가 없어요. 영상 캡션의 번호를 다시 확인해 주세요.</p>
 
-  <footer>샘플 상품 목록입니다 · 실제 운영 시 상품 사진과 쿠팡 파트너스 링크로 교체</footer>
+  <footer>매일 업데이트되는 생활 꿀템 모음 · 오늘의장바구니</footer>
 </div>
 
 <script>
-const S = q => 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
-const products = [
-  {no:1, name:'문풍지 틈막이 테이프', short:'문풍지', note:'외풍 막아 난방비 절약', cat:'겨울준비', tags:['로켓배송'], hue:210},
-  {no:2, name:'전기요 싱글', short:'전기요', note:'온도 6단계, 자동 꺼짐', cat:'겨울준비', tags:['로켓배송','베스트'], hue:12},
-  {no:3, name:'미니 가습기', short:'가습기', note:'책상용, USB 전원', cat:'겨울준비', tags:['로켓배송'], hue:190},
-  {no:4, name:'냉장고 정리 용기 세트', short:'정리 용기', note:'칸 나눔 투명 용기', cat:'주방', tags:['로켓배송'], hue:150},
-  {no:5, name:'싱크대 배수구 거름망', short:'거름망', note:'일회용 100매', cat:'주방', tags:['재구매 많음'], hue:40},
-  {no:6, name:'압축 수납백', short:'압축백', note:'여름옷 부피 1/3로', cat:'수납', tags:['로켓배송'], hue:265},
-  {no:7, name:'무선 청소기 거치대', short:'거치대', note:'벽 타공 없이 세우는 형', cat:'수납', tags:[], hue:230},
-  {no:8, name:'욕실 곰팡이 제거젤', short:'곰팡이젤', note:'실리콘 틈 전용', cat:'욕실', tags:['베스트'], hue:175},
-  {no:9, name:'멀티탭 정리함', short:'정리함', note:'선 숨기는 박스', cat:'수납', tags:[], hue:300},
-  {no:10, name:'극세사 수면양말', short:'수면양말', note:'5켤레 묶음', cat:'겨울준비', tags:['로켓배송'], hue:340}
+const SHEET_ID = '1SywiZ7inEpsHSV1NEp_-2Cwj0k0IFtiLSklpjCQaWwQ';
+const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
+
+let products = [
+  {no:1, name:'한일의료기 카본 탄소 전기매트', short:'전기요', note:'전자파 걱정 없는 포근한 탄소 전기요', cat:'겨울준비', tags:['로켓배송','인기'], link:'https://link.coupang.com/a/hydh5yYZvo', img:'', platform:'coupang'},
+  {no:2, name:'오아 듀얼 미스트 무선 가습기', short:'가습기', note:'통세척 간편하고 촉촉한 듀얼 분사', cat:'겨울준비', tags:['로켓배송','무선'], link:'https://link.coupang.com/a/hydnuaaO6v', img:'', platform:'coupang'},
+  {no:3, name:'경동나비엔 온수매트 슬림', short:'온수매트', note:'소음 없이 은은하게 따뜻한 온수매트', cat:'겨울준비', tags:['슬림형'], link:'https://link.coupang.com/a/hydoTNQOyq', img:'', platform:'coupang'},
+  {no:4, name:'사무실 접이식 발난로 파티션 히터', short:'발난로', note:'발 시림 끝! 화재 걱정 없는 3면 파티션', cat:'겨울준비', tags:['절전형'], link:'https://link.coupang.com/a/hydscG8uSO', img:'', platform:'coupang'},
+  {no:5, name:'프로닥스 에어프라이어 원형 종이호일', short:'종이호일', note:'기름기 완벽 차단! 설거지 없는 두꺼운 호일', cat:'주방', tags:['대용량','필수템'], link:'https://link.coupang.com/a/hydv7cNoE8', img:'', platform:'coupang'},
+  {no:6, name:'홈스타 착붙는 락스스프레이 곰팡이젤', short:'곰팡이젤', note:'솔질 없이 뿌려두면 끝나는 강력 젤', cat:'청소', tags:['욕실','베스트'], link:'https://link.coupang.com/a/hydxmmAxXw', img:'', platform:'coupang'},
+  {no:7, name:'에어스케이프 하수구 냄새차단 트랩', short:'배수구트랩', note:'역류하는 벌레와 악취 3초 만에 원천 차단', cat:'청소', tags:['악취차단'], link:'https://link.coupang.com/a/hydzLUvNDg', img:'', platform:'coupang'},
+  {no:8, name:'이지이지 밸브형 의류/이불 압축팩', short:'압축팩', note:'겨울 패딩·이불 부피를 1/3로 압축', cat:'수납', tags:['공간절약'], link:'https://link.coupang.com/a/hydA8lJHIO', img:'', platform:'coupang'},
+  {no:9, name:'무타공 무선청소기 스탠드 거치대', short:'거치대', note:'벽 안 뚫고 청소기+툴 깔끔하게 정리', cat:'수납', tags:['무타공'], link:'https://link.coupang.com/a/hydCFzzhVA', img:'', platform:'coupang'},
+  {no:10, name:'3in1 맥세이프 고속 무선충전 거치대', short:'충전거치대', note:'폰·워치·이어폰 선 하나로 동시 충전', cat:'데스크', tags:['데스크테리어'], link:'https://link.coupang.com/a/hydEmK6JwW', img:'', platform:'coupang'}
 ];
-const cats = ['전체', ...new Set(products.map(p => p.cat))];
+
+let cats = ['전체'];
 let cat = '전체', view = 'list';
 try { view = localStorage.getItem('view') || 'list'; } catch(e) {}
-const $items = document.getElementById('items'), $q = document.getElementById('q'),
-      $empty = document.getElementById('empty'), $chips = document.getElementById('chips');
-const dark = () => document.documentElement.dataset.theme === 'dark' ||
-  (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+
+const $items = document.getElementById('items'), 
+      $q = document.getElementById('q'),
+      $empty = document.getElementById('empty'), 
+      $chips = document.getElementById('chips');
+
+function updateChips() {
+  cats = ['전체', ...new Set(products.map(p => p.cat).filter(Boolean))];
+  $chips.innerHTML = '';
+  cats.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.textContent = c; b.id = 'chip-' + c;
+    b.onclick = () => { cat = c; render(); };
+    $chips.appendChild(b);
+  });
+}
 
 document.querySelectorAll('.views button').forEach(b => b.onclick = () => {
   view = b.dataset.v; try { localStorage.setItem('view', view); } catch(e) {} render();
-});
-cats.forEach(c => {
-  const b = document.createElement('button');
-  b.className = 'chip'; b.type = 'button'; b.textContent = c; b.id = 'chip-' + c;
-  b.onclick = () => { cat = c; render(); };
-  $chips.appendChild(b);
 });
 
 function render(){
@@ -148,21 +161,80 @@ function render(){
   const q = $q.value.trim(), isNum = /^\d+$/.test(q);
   const rows = products.filter(p =>
     (cat === '전체' || p.cat === cat) &&
-    (!q || (isNum ? p.no === +q : p.name.includes(q) || p.note.includes(q))));
-  $items.innerHTML = rows.map(p => `
+    (!q || (isNum ? p.no === +q : p.name.includes(q) || (p.note && p.note.includes(q)))));
+  
+  $items.innerHTML = rows.map(p => {
+    const isNaver = p.platform === 'naver';
+    const btnText = isNaver ? '네이버에서 보기' : '쿠팡에서 보기';
+    const btnClass = isNaver ? 'buy naver' : 'buy';
+    const thumbHtml = p.img 
+      ? `<div class="thumb"><img src="${p.img}" alt="${p.name}" loading="lazy"></div>`
+      : `<div class="thumb" aria-hidden="true">${p.short || '오늘의<br>추천템'}</div>`;
+
+    return `
     <li class="item${isNum && rows.length === 1 ? ' hit' : ''}">
       <div class="sticker" aria-label="상품 번호 ${p.no}">${p.no}</div>
-      <div class="thumb" aria-hidden="true">상품 사진<br>${p.short}</div>
-      <div class="info"><h2>${p.name}</h2><p>${p.note}</p>
-        ${p.tags.length ? `<div class="meta">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>` : ''}</div>
-      <a class="buy" href="${S(p.name)}" target="_blank" rel="noopener">쿠팡에서 보기</a>
-    </li>`).join('');
+      ${thumbHtml}
+      <div class="info">
+        <h2>${p.name}</h2>
+        <p>${p.note || ''}</p>
+        ${p.tags && p.tags.length ? `<div class="meta">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>` : ''}
+      </div>
+      <a class="${btnClass}" href="${p.link}" target="_blank" rel="noopener noreferrer">${btnText}</a>
+    </li>`;
+  }).join('');
+  
   $empty.hidden = rows.length > 0;
 }
+
 $q.addEventListener('input', render);
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', render);
 new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
-render();
-</script>
 
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
+  return lines.slice(1).map(line => {
+    const row = [];
+    let insideQuotes = false, val = '';
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { insideQuotes = !insideQuotes; }
+      else if (c === ',' && !insideQuotes) { row.push(val); val = ''; }
+      else { val += c; }
+    }
+    row.push(val);
+    const item = {};
+    headers.forEach((h, idx) => {
+      let v = (row[idx] || '').replace(/^["']|["']$/g, '').trim();
+      if (h === 'no') item.no = parseInt(v, 10);
+      else if (h === 'tags') item.tags = v ? v.split(',').map(t => t.trim()) : [];
+      else item[h] = v;
+    });
+    return item;
+  }).filter(item => item.no && item.link);
+}
+
+async function loadFromGoogleSheet() {
+  try {
+    const res = await fetch(GVIZ_URL);
+    if (!res.ok) return;
+    const csvText = await res.text();
+    const sheetData = parseCSV(csvText);
+    if (sheetData && sheetData.length > 0) {
+      products = sheetData;
+      updateChips();
+      render();
+    }
+  } catch (err) {
+    console.log('Google Sheets fallback active:', err);
+  }
+}
+
+updateChips();
+render();
+loadFromGoogleSheet();
+</script>
+</body>
 </html>
