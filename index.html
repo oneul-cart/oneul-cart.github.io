@@ -93,7 +93,7 @@ footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid 
   </header>
 
   <div class="promise"><div class="ck" aria-hidden="true">✓</div><div><strong>링크로 사도 가격은 똑같아요</strong><span>할인·쿠폰·로켓배송·와우 혜택 그대로</span></div></div>
-  <p class="notice">이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+  <p class="notice">이 페이지는 쿠팡 파트너스 및 네이버 쇼핑커넥트 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
 
   <div class="bar">
     <div class="views" role="group" aria-label="보기 방식">
@@ -114,14 +114,14 @@ footer{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid 
 <script>
 const S = q => 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
 const products = [
-  {no:1, name:'전기요', short:'전기요', note:'카본 탄소 전기매트, 랭킹 1위', cat:'겨울준비', tags:['로켓배송','베스트'], link:'https://link.coupang.com/a/hykUcJGF2a', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/0ce7/cd8d0d920766dad45559a6be0baf041b119f53aa90858d3202fd71123400.jpg'},
-  {no:2, name:'미니 가습기', short:'가습기', note:'건조한 방·책상에 하나씩', cat:'겨울준비', tags:['로켓배송'], link:'https://link.coupang.com/a/hyk0EDgOwS', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/88680681070877-4cd94524-948e-44aa-8b2a-94e5a2bcfea5.jpg'},
-  {no:3, name:'온수매트', short:'온수매트', note:'전자파 걱정 덜한 물 순환식', cat:'겨울준비', tags:['로켓배송'], link:'https://link.coupang.com/a/hyk4O296k0', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/899c/bf2eeccc9fb0f4a45d4ceb59a88cccc938bf00c0a1901dba5802ac1e8d39.jpg'},
+  {no:1, name:'전기요', short:'전기요', note:'카본 탄소 전기매트', cat:'겨울준비', tags:[], link:'https://link.coupang.com/a/hykUcJGF2a', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/0ce7/cd8d0d920766dad45559a6be0baf041b119f53aa90858d3202fd71123400.jpg'},
+  {no:2, name:'미니 가습기', short:'가습기', note:'건조한 방·책상에 하나씩', cat:'겨울준비', tags:[], link:'https://link.coupang.com/a/hyk0EDgOwS', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/88680681070877-4cd94524-948e-44aa-8b2a-94e5a2bcfea5.jpg'},
+  {no:3, name:'온수매트', short:'온수매트', note:'전자파 걱정 덜한 물 순환식', cat:'겨울준비', tags:[], link:'https://link.coupang.com/a/hyk4O296k0', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/899c/bf2eeccc9fb0f4a45d4ceb59a88cccc938bf00c0a1901dba5802ac1e8d39.jpg'},
   {no:4, name:'발 워머', short:'발 워머', note:'책상 밑 발 시림 해결', cat:'겨울준비', tags:[], link:'https://link.coupang.com/a/hyk8oHrv5w', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/36d7/7e6811c1876d1eabf1190044bcf94fb7f0c9018f2a39c183b3f5c0e96e4d.jpg'},
-  {no:5, name:'에어프라이어 종이호일', short:'종이호일', note:'설거지 없이 깔끔하게', cat:'주방', tags:['재구매 많음'], link:'https://link.coupang.com/a/hylb5Pi3jg', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/903480282181181-f77a2b6b-fae1-4b02-bbb1-fa36aa18f76a.jpg'},
-  {no:6, name:'곰팡이 제거젤', short:'곰팡이젤', note:'실리콘 틈 검은 곰팡이', cat:'청소·욕실', tags:['베스트'], link:'https://link.coupang.com/a/hyleam3WxM', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/29579579677438-6a19c6ae-8fa7-45e9-a220-63b8ac85ddba.jpg'},
+  {no:5, name:'에어프라이어 종이호일', short:'종이호일', note:'설거지 없이 깔끔하게', cat:'주방', tags:[], link:'https://link.coupang.com/a/hylb5Pi3jg', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/903480282181181-f77a2b6b-fae1-4b02-bbb1-fa36aa18f76a.jpg'},
+  {no:6, name:'곰팡이 제거제', short:'곰팡이 제거', note:'욕실 실리콘 틈 검은 곰팡이', cat:'청소·욕실', tags:[], link:'https://link.coupang.com/a/hyleam3WxM', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/29579579677438-6a19c6ae-8fa7-45e9-a220-63b8ac85ddba.jpg'},
   {no:7, name:'배수구 트랩', short:'트랩', note:'하수구 냄새·벌레 차단', cat:'청소·욕실', tags:[], link:'https://link.coupang.com/a/hylgrcKH4m', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/retail/images/2025/10/20/10/9/dc79e212-5b4a-4741-954f-fb165f9a6d01.png'},
-  {no:8, name:'압축팩', short:'압축팩', note:'여름옷·이불 부피 확 줄이기', cat:'수납', tags:['로켓배송'], link:'https://link.coupang.com/a/hylmvhrfeS', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/2527/26ca97d3e90bac3b58796c58b850b0e33a9cd6cfd2b7c190cf6b21f04673.png'},
+  {no:8, name:'압축팩', short:'압축팩', note:'여름옷·이불 부피 확 줄이기', cat:'수납', tags:[], link:'https://link.coupang.com/a/hylmvhrfeS', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/2527/26ca97d3e90bac3b58796c58b850b0e33a9cd6cfd2b7c190cf6b21f04673.png'},
   {no:9, name:'무선청소기 거치대', short:'거치대', note:'벽 타공 없이 세우는 형', cat:'수납', tags:[], link:'https://link.coupang.com/a/hylpe2frB6', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/7c9c/7e0935cf36a697259c676a79f97363643488aadf86ad28af3e2c302abc4f.jpg'},
   {no:10, name:'무선충전 거치대', short:'충전 거치대', note:'올려두기만 하면 충전', cat:'생활가전', tags:[], link:'https://link.coupang.com/a/hylsaiBO4O', img:'https://thumbnail.coupangcdn.com/thumbnails/remote/640x640ex/image/vendor_inventory/426f/ec40d105320bd1655830ec262bf5a644d5ddfc0ed0881031b7ccf3471a36.jpg'}
 ];
