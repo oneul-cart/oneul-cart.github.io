@@ -176,8 +176,8 @@ new MutationObserver(render).observe(document.documentElement, {attributes:true,
 render();
 </script>
 
-<!-- 관리자 바로가기: 오른쪽 아래 구석 투명 버튼, 1.5초 안에 3번 눌러야 열림 (실수로 열리지 않게) -->
-<a id="adm" href="admin.html" aria-hidden="true" tabindex="-1" style="position:fixed;right:0;bottom:0;width:44px;height:44px;opacity:0;z-index:9999;-webkit-tap-highlight-color:transparent"></a>
+<!-- 관리자 바로가기: 오른쪽 위 구석 투명 버튼(페이지 맨 위에만, 스크롤 따라오지 않음), 1.5초 안에 3번 눌러야 열림 (실수로 열리지 않게) -->
+<a id="adm" href="admin.html" aria-hidden="true" tabindex="-1" style="position:absolute;right:0;top:0;width:44px;height:44px;opacity:0;z-index:9999;-webkit-tap-highlight-color:transparent"></a>
 <script>
 (function(){var a=document.getElementById('adm'),n=0,t=0;a.addEventListener('click',function(e){e.preventDefault();var now=Date.now();n=(now-t<1500)?n+1:1;t=now;if(n>=3){n=0;location.href='admin.html';}});})();
 </script>
